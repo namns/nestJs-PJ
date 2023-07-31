@@ -2,6 +2,7 @@ import {Controller, Post, Body, Get, Put, Delete, Param, Query, UseGuards} from 
 import { UsersService } from './users.service';
 import { User } from './user.entity/user.entity';
 import * as bcrypt from 'bcrypt';
+import { UserDTO } from './user.dto';
 // import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 
 @Controller('users')
@@ -21,10 +22,10 @@ export class UsersController {
     }
 
     @Post()
-    async create(@Body() user: User) {
+    async create(@Body() user: UserDTO) {
         const saltOrRounds = 10;
         user.password = await bcrypt.hash(user.password, saltOrRounds);
-        return this.service.createUser(user);
+        // return this.service.createUser(user);
     }
 
     @Put(':id')
